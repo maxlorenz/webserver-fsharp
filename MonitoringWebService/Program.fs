@@ -8,7 +8,7 @@ let ram = new PerformanceCounter("Memory", "% Committed Bytes In Use", "")
 let getJSON() = 
     let cpuValue = (double)(cpu.NextValue())
     let ramValue = (double)(ram.NextValue())
-    JObject [ ("cpu", cpuValue |> JNumber); ("ram", ramValue |> JNumber) ] |> JSON.toString
+    JObject [ ("cpu", JNumber cpuValue); ("ram", JNumber ramValue) ] |> JSON.toString
 
 [<EntryPoint>]
 let main argv =
