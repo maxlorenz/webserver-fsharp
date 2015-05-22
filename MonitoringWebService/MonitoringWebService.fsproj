@@ -44,11 +44,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JSON.fs" />
     <Compile Include="Webserver.fs" />
+    <Compile Include="WMI.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
