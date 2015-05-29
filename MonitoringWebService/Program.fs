@@ -10,6 +10,8 @@ let rec valueToJSON (value: obj) =
         JBool b
     | :? uint8 | :? uint16 | :? uint32 | :? uint64 -> 
         JNumber (System.Double.Parse(value.ToString()))
+    | :? int8 | :? int16 | :? int32 | :? int64 ->
+        JNumber (System.Double.Parse(value.ToString()))
     | :? (uint8 array) as a -> 
         JArray [ for element in a do yield valueToJSON element ]
     | :? (uint16 array) as a -> 
