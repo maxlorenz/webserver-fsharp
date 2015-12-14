@@ -1,32 +1,18 @@
 # webserver-fsharp
 
-A simple webserver in F#. It's purpose is to deliver WMI data in JSON for monitoring tools.
+A simple webserver in F#. It's purpose is to create a REST Api fast.
 
 ## Example usage
 ``` fsharp
-	open JSON
-	open Webserver
-	open System.Diagnostics
-	
-	let cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total")
-	let ram = new PerformanceCounter("Memory", "% Committed Bytes In Use", "")
-	
-	let getJSON() = 
-	    let cpuValue = (double)(cpu.NextValue())
-	    let ramValue = (double)(ram.NextValue())
-    	JObject [ ("cpu", JNumber cpuValue); ("ram", JNumber ramValue) ] |> JSON.toString
-	
-	[<EntryPoint>]
-	let main argv =
-	
-	    let route path =
-	        match path with
-	        | "/info" -> getJSON()
-	        | _ -> "404"
-	
-	    // 8080 is the port
-	    // route is function that takes the url and returns some text to send to the client
-	    Webserver.listenLocal 8080 route
-	        
-	    0 // return an integer exit code
+    Webserver.listen
+        "localhost"
+        8000
+        "404, site not found!"
+        [
+            "", fun _ -> "status"
+            "/categories", fun _ -> "list of all categories: ..."
+            "/applications", fun _ -> "list of all applications: ..."
+            "/categories/{{name}}", fun x -> sprintf "requested %s" x.["name"].Value
+            // ...
+        ]
 ```
